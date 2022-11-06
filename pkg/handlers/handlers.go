@@ -4,6 +4,7 @@ import (
 	"bookings/pkg/config"
 	"bookings/pkg/models"
 	"bookings/pkg/render"
+	"fmt"
 	"net/http"
 )
 
@@ -71,7 +72,11 @@ func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
 
 // PostAvailability renders the search availability page
 func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Posted to search availability")) // convert string to a slice of byte
+	// get data from form input by field name
+	start := r.Form.Get("start")
+	end := r.Form.Get("end")
+	// convert string to a slice of byte
+	w.Write([]byte(fmt.Sprintf("start data is %s and end date is %s", start, end)))
 }
 
 // Contact renders the contact page
