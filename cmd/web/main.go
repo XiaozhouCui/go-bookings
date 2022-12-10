@@ -24,6 +24,26 @@ var app config.AppConfig
 var session *scs.SessionManager
 
 func main() {
+	err := run()
+	if err != nil {
+		// stop the app if there is an error
+		log.Fatal(err)
+	}
+
+	// print in terminal
+	fmt.Printf("Starting application on port %s\n", portNumber)
+
+	// create a server
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+	log.Fatal(err)
+}
+
+func run() error {
 	// what am I going to put in the session
 	gob.Register(models.Reservation{})
 
@@ -57,15 +77,5 @@ func main() {
 	// give render package access to the app config
 	render.NewTemplates(&app) // reference to app using pointer
 
-	// print in terminal
-	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
-
-	// create a server
-	srv := &http.Server{
-		Addr:    portNumber,
-		Handler: routes(&app),
-	}
-
-	err = srv.ListenAndServe()
-	log.Fatal(err)
+	return nil
 }
