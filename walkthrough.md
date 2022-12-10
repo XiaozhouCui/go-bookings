@@ -8,10 +8,10 @@
 
 ## Unit tests
 
-- Add _setup_test.go_ to do the initial setup
+- Go to _./cmd/web_, add `setup_test.go` to do the initial setup
 - Make sure `gcc` is installed in Linux
-- Add _blah_test.go_ files inside _./cmd/web/_
-- Go to _./cmd/web_, run `go test`
+- Add `*_test.go` files inside _./cmd/web/_
+- In _./cmd/web_, run `go test`
 - To show tests verbosely, run `go test -v`
 - To show coverage, run `go test -cover`
 - To create html report, run `go test -coverprofile=coverage.out && go tool cover -html=coverage.out`
