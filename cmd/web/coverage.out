@@ -1,0 +1,10 @@
+mode: set
+bookings/cmd/web/main.go:26.13,28.16 2 0
+bookings/cmd/web/main.go:34.2,43.16 4 0
+bookings/cmd/web/main.go:28.16,31.3 1 0
+bookings/cmd/web/main.go:46.18,65.16 10 1
+bookings/cmd/web/main.go:70.2,80.12 6 1
+bookings/cmd/web/main.go:65.16,67.3 1 0
+bookings/cmd/web/middleware.go:10.45,22.2 3 1
+bookings/cmd/web/middleware.go:25.50,28.2 1 1
+bookings/cmd/web/routes.go:12.49,39.2 18 1
