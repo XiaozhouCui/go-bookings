@@ -32,5 +32,22 @@ func TestMain(m *testing.M) {
 
 	// make sure the app in render.go has everything needed
 	app = &testApp
+
 	os.Exit(m.Run())
+}
+
+// create a type/interface for response writer
+type myWriter struct{}
+
+// add methods to the response writer type using receiver
+func (tw *myWriter) Header() http.Header {
+	var h http.Header
+	return h
+}
+
+func (tw *myWriter) WriteHeader(i int) {}
+
+func (tw *myWriter) Write(b []byte) (int, error) {
+	length := len(b)
+	return length, nil
 }

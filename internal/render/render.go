@@ -4,9 +4,9 @@ import (
 	"bookings/internal/config"
 	"bookings/internal/models"
 	"bytes"
+	"errors"
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"path/filepath"
 
@@ -33,7 +33,7 @@ func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateDa
 }
 
 // RenderTemplate renders a template
-func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) error {
 	// declare template cache (tc) as a map
 	var tc map[string]*template.Template
 
@@ -49,8 +49,8 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 	// get requested template (t) from cache
 	t, ok := tc[tmpl] // tmpl is the file name (e.g. "home.page.tmpl")
 	if !ok {
-		// if template not found, kill the app
-		log.Fatal("Could not get template from template cache")
+		// if template not found, return an error
+		return errors.New("could not get template from cache")
 	}
 
 	buf := new(bytes.Buffer) // create buffer to hold bytes
@@ -63,7 +63,10 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 	_, err := buf.WriteTo(w) // write from buffer to http response
 	if err != nil {
 		fmt.Println("Error writing template to browser", err)
+		return err
 	}
+
+	return nil
 }
 
 // Cache templates to avoid loading template files from disk on every request
