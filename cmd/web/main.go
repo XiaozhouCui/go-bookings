@@ -3,12 +3,14 @@ package main
 import (
 	"bookings/internal/config"
 	"bookings/internal/handlers"
+	"bookings/internal/helpers"
 	"bookings/internal/models"
 	"bookings/internal/render"
 	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/alexedwards/scs/v2"
@@ -22,6 +24,10 @@ var app config.AppConfig
 
 // pointer to scs.SessionManager
 var session *scs.SessionManager
+
+// pointer to log.Logger
+var infoLog *log.Logger
+var errorLog *log.Logger
 
 func main() {
 	err := run()
@@ -50,6 +56,13 @@ func run() error {
 	// change this to true when in production
 	app.InProduction = false
 
+	// add loggers to the app
+	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+
+	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile) // give information about the error
+	app.ErrorLog = errorLog
+
 	// initialise session
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour              // keep session for 24 hours
@@ -76,6 +89,8 @@ func run() error {
 	handlers.NewHandlers(repo)
 	// give render package access to the app config
 	render.NewTemplates(&app) // reference to app using pointer
+	// give helper function access to the app config
+	helpers.NewHelpers(&app)
 
 	return nil
 }
