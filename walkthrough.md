@@ -15,6 +15,7 @@
 - To show tests verbosely, run `go test -v`
 - To show coverage, run `go test -cover`
 - To create html report, run `go test -coverprofile=coverage.out && go tool cover -html=coverage.out`
+- To run all tests, go to project root folder, run `go test -v ./...`
 
 ## add run script
 
