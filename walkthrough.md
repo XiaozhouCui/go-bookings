@@ -15,3 +15,9 @@
 - To show tests verbosely, run `go test -v`
 - To show coverage, run `go test -cover`
 - To create html report, run `go test -coverprofile=coverage.out && go tool cover -html=coverage.out`
+
+## add run script
+
+- create _run.sh_
+- make the script executable: `chmod +x run.sh`
+- run `./run.sh`

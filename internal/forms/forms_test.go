@@ -42,15 +42,15 @@ func TestForm_Required(t *testing.T) {
 }
 
 func TestForm_Has(t *testing.T) {
-	r := httptest.NewRequest("POST", "/whatever", nil)
-	form := New(r.PostForm)
+	postedData := url.Values{}
+	form := New(postedData)
 
 	has := form.Has("whatever")
 	if has {
 		t.Error("form shows has field when it does not")
 	}
 
-	postedData := url.Values{}
+	postedData = url.Values{}
 	postedData.Add("a", "a")
 	// re-initialize form with new request
 	form = New(postedData)
@@ -62,8 +62,8 @@ func TestForm_Has(t *testing.T) {
 }
 
 func TestForm_MinLength(t *testing.T) {
-	r := httptest.NewRequest("POST", "/whatever", nil)
-	form := New(r.PostForm)
+	postedValues := url.Values{}
+	form := New(postedValues)
 
 	form.MinLength("x", 10)
 	if form.Valid() {
@@ -75,7 +75,7 @@ func TestForm_MinLength(t *testing.T) {
 		t.Error("should have an error, but did not get one")
 	}
 
-	postedValues := url.Values{}
+	postedValues = url.Values{}
 	postedValues.Add("some_field", "some value")
 	form = New(postedValues)
 
