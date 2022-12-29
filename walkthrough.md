@@ -23,9 +23,15 @@
 - make the script executable: `chmod +x run.sh`
 - run `./run.sh`
 
-## Install Soda for DB migration
+## Install Pop and Soda for DB migration
 
+- View the doc here: https://gobuffalo.io/documentation/database/pop/
 - Install pop: `go get github.com/gobuffalo/pop/...`
 - Install soda CLI: `go install github.com/gobuffalo/pop/v6/soda@latest`
 - Update _~/.profile_ (or _~/.zprofile_ on mac), add new line `export PATH="$HOME/go/bin:$PATH"`
-- Restart terminal
+- Restart terminal, run `soda -v` to check installation
+
+## Setup database in postgres
+
+- Add docker-compose file and run `docker compose up`
+- Connect to db using DBeaver at `localhost:54321`
