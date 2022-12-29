@@ -44,3 +44,9 @@
 - Run `soda migrate` to create the users table
 - Update the generated file `*_create_user_table.down.fizz`
 - Run `soda migrate down` to drop the users table
+
+## Create other tables
+- `soda generate fizz CreateReservationTable`
+- `soda generate fizz CreateRoomsTable`
+- `soda generate fizz CreateRestrictionsTable`
+- `soda generate fizz CreateRoomRestrictionsTable`
