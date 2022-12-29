@@ -17,8 +17,15 @@
 - To create html report, run `go test -coverprofile=coverage.out && go tool cover -html=coverage.out`
 - To run all tests, go to project root folder, run `go test -v ./...`
 
-## add run script
+## Add run script
 
 - create _run.sh_
 - make the script executable: `chmod +x run.sh`
 - run `./run.sh`
+
+## Install Soda for DB migration
+
+- Install pop: `go get github.com/gobuffalo/pop/...`
+- Install soda CLI: `go install github.com/gobuffalo/pop/v6/soda@latest`
+- Update _~/.profile_ (or _~/.zprofile_ on mac), add new line `export PATH="$HOME/go/bin:$PATH"`
+- Restart terminal
