@@ -63,3 +63,5 @@
 - Update the generated migration files
 - Run `soda migrate`
 - Repeat with `soda generate fizz CreateIndicesOnRoomRestrictions`
+- Repeat with `soda generate fizz AddFKAndIndicesToReservationTable`
+- Run `soda reset` to run all `down` migrations and then run all `up` migrations
