@@ -35,3 +35,12 @@
 
 - Add docker-compose file and run `docker compose up`
 - Connect to db using DBeaver at `localhost:54321`
+
+## Migration
+
+- Create _database.yml_
+- Run `soda generate fizz CreateUserTable`
+- Update the generated file `*_create_user_table.up.fizz`
+- Run `soda migrate` to create the users table
+- Update the generated file `*_create_user_table.down.fizz`
+- Run `soda migrate down` to drop the users table
