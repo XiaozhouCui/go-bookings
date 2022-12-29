@@ -46,7 +46,15 @@
 - Run `soda migrate down` to drop the users table
 
 ## Create other tables
+
 - `soda generate fizz CreateReservationTable`
 - `soda generate fizz CreateRoomsTable`
 - `soda generate fizz CreateRestrictionsTable`
 - `soda generate fizz CreateRoomRestrictionsTable`
+
+## Add foreign key
+
+- Run `soda generate fizz CreateFKForReservationsTable`
+- Update the generated migration files
+- Run `soda migrate`
+- Repeat with `soda generate fizz CreateFKForRoomRestrictions`
