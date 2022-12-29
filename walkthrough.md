@@ -40,13 +40,11 @@
 
 - Create _database.yml_
 - Run `soda generate fizz CreateUserTable`
-- Update the generated file `*_create_user_table.up.fizz`
+- Update the generated file `timestamp_create_user_table.up.fizz`
 - Run `soda migrate` to create the users table
-- Update the generated file `*_create_user_table.down.fizz`
+- Update the generated file `timestamp_create_user_table.down.fizz`
 - Run `soda migrate down` to drop the users table
-
-## Create other tables
-
+- Repeat with the following tables
 - `soda generate fizz CreateReservationTable`
 - `soda generate fizz CreateRoomsTable`
 - `soda generate fizz CreateRestrictionsTable`
@@ -58,3 +56,10 @@
 - Update the generated migration files
 - Run `soda migrate`
 - Repeat with `soda generate fizz CreateFKForRoomRestrictions`
+
+## Add index
+
+- Run `soda generate fizz CreateUniqueIndexForUsersTable`
+- Update the generated migration files
+- Run `soda migrate`
+- Repeat with `soda generate fizz CreateIndicesOnRoomRestrictions`
