@@ -54,6 +54,9 @@ func main() {
 func run() (*driver.DB, error) {
 	// what am I going to put in the session
 	gob.Register(models.Reservation{})
+	gob.Register(models.User{})
+	gob.Register(models.Room{})
+	gob.Register(models.Restriction{})
 
 	// change this to true when in production
 	app.InProduction = false
@@ -99,7 +102,7 @@ func run() (*driver.DB, error) {
 	// pass the repo back to the handlers
 	handlers.NewHandlers(repo)
 	// give render package access to the app config
-	render.NewTemplates(&app) // reference to app using pointer
+	render.NewRenderer(&app) // reference to app using pointer
 	// give helper function access to the app config
 	helpers.NewHelpers(&app)
 

@@ -10,7 +10,7 @@ import (
 // create a map to cache templates, as loading template files from disk on every request is expensive
 var tc = make(map[string]*template.Template)
 
-// RenderTemplate renders templates using html/templates
+// RenderTemplateSimple renders templates using html/templates
 func RenderTemplateSimple(w http.ResponseWriter, t string) {
 	// t is the template file name, e.g. home.page.tmpl
 	var tmpl *template.Template
