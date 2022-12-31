@@ -2,6 +2,7 @@ package main
 
 import (
 	"bookings/internal/config"
+	"bookings/internal/driver"
 	"bookings/internal/handlers"
 	"bookings/internal/helpers"
 	"bookings/internal/models"
@@ -30,11 +31,12 @@ var infoLog *log.Logger
 var errorLog *log.Logger
 
 func main() {
-	err := run()
+	db, err := run()
 	if err != nil {
 		// stop the app if there is an error
 		log.Fatal(err)
 	}
+	defer db.SQL.Close()
 
 	// print in terminal
 	fmt.Printf("Starting application on port %s\n", portNumber)
@@ -49,7 +51,7 @@ func main() {
 	log.Fatal(err)
 }
 
-func run() error {
+func run() (*driver.DB, error) {
 	// what am I going to put in the session
 	gob.Register(models.Reservation{})
 
@@ -73,10 +75,19 @@ func run() error {
 	// save session into global app config
 	app.Session = session
 
+	// connect to database
+	log.Println("Connecting to database...")
+	db, err := driver.ConnectSQL("host=localhost port=54321 dbname=bookings user=postgres password=postgres")
+	if err != nil {
+		log.Fatal("Cannot connect to database! Dying...")
+	}
+	log.Println("Connected to database!")
+
 	// create a map (tc) to cache all templates
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
 		log.Fatal("Cannot create template cache")
+		return nil, err
 	}
 
 	// store the template cache to the app config
@@ -84,7 +95,7 @@ func run() error {
 	app.UseCache = false
 
 	// declare repository variable
-	repo := handlers.NewRepo(&app)
+	repo := handlers.NewRepo(&app, db)
 	// pass the repo back to the handlers
 	handlers.NewHandlers(repo)
 	// give render package access to the app config
@@ -92,5 +103,5 @@ func run() error {
 	// give helper function access to the app config
 	helpers.NewHelpers(&app)
 
-	return nil
+	return db, nil
 }
