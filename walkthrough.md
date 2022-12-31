@@ -65,3 +65,7 @@
 - Repeat with `soda generate fizz CreateIndicesOnRoomRestrictions`
 - Repeat with `soda generate fizz AddFKAndIndicesToReservationTable`
 - Run `soda reset` to run all `down` migrations and then run all `up` migrations
+
+## Integrate Postgres with app
+
+- Install driver **pgx**: `go get github.com/jackc/pgx/v4`
