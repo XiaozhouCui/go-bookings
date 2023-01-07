@@ -33,6 +33,7 @@
 
 ## Setup database in postgres
 
+- Create docker volume to persist data: `docker volume create pgdata`
 - Add docker-compose file and run `docker compose up`
 - Connect to db using DBeaver at `localhost:54321`
 
